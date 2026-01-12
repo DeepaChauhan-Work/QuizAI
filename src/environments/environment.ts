@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  geminiApiKey: 'AIzaSyBFCnRqy_X4zvQM8nDko3iPGdrbRhuQ_yM',
+  geminiApiKey: '', // Add your Gemini API key here for local development
   firebase: {
     apiKey: 'AIzaSyBToPVpULBspnuQCrpyJa8UIgptzqEB1Bg',
     authDomain: 'quiz-maker-208f7.firebaseapp.com',

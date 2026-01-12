@@ -25,6 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Replace Gemini API Key
+        run: |
+          sed -i "s|geminiApiKey: ''|geminiApiKey: '${{ secrets.GEMINI_API_KEY }}'|g" src/environments/environment.prod.ts
+
       - name: Build Angular app
         run: npm run build -- --configuration production
 
