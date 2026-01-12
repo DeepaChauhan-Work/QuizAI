@@ -1,0 +1,35 @@
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+  <div class="col-span-1">
+    <div class="bg-gray-100 p-8 rounded-lg shadow-md">
+      <h3 class="text-xl font-bold mb-4">Filters</h3>
+      <form [formGroup]="filterForm" (ngSubmit)="filterProperties()">
+        <div class="mb-4">
+          <label for="location" class="block text-gray-700">Location</label>
+          <input type="text" id="location" formControlName="location" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600">
+        </div>
+        <div class="mb-4">
+          <label for="price" class="block text-gray-700">Price Range</label>
+          <select id="price" formControlName="price" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600">
+            <option value="">All</option>
+            <option value="100000-200000">$100,000 - $200,000</option>
+            <option value="200000-300000">$200,000 - $300,000</option>
+            <option value="300000-400000">$300,000 - $400,000</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="type" class="block text-gray-700">Property Type</label>
+          <select id="type" formControlName="type" class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600">
+            <option value="">All</option>
+            <option value="House">House</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Condo">Condo</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600">Filter</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-span-3">
+    <app-property-list [properties]="properties"></app-property-list>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<header class="w-full bg-gradient-to-br from-blue-50 via-white to-purple-50">
+  <nav class="container mx-auto px-6 py-6">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg>
+        <a routerLink="/" class="text-2xl font-bold text-gray-900">QuizAI</a>
+      </div>
+      <div class="hidden md:flex items-center gap-8">
+        <!-- Always visible - Landing Page -->
+        <a routerLink="/" routerLinkActive="text-gray-900" [routerLinkActiveOptions]="{exact: true}" 
+           class="text-gray-600 hover:text-gray-900 transition-colors">Home</a>
+        
+        <!-- Contact - Only visible when NOT authenticated -->
+        <a *ngIf="!isAuthenticated" routerLink="/contact" routerLinkActive="text-gray-900" 
+           class="text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
+        
+        <!-- Student-only navigation (when authenticated as student) -->
+        <ng-container *ngIf="isAuthenticated && isStudent">
+          <a routerLink="/student/results" routerLinkActive="text-gray-900" 
+             class="text-gray-600 hover:text-gray-900 transition-colors">My Results</a>
+        </ng-container>
+        
+        <!-- Admin-only navigation (when authenticated as admin) -->
+        <ng-container *ngIf="isAuthenticated && !isStudent">
+          <a routerLink="/home" routerLinkActive="text-gray-900" 
+             class="text-gray-600 hover:text-gray-900 transition-colors">Create Quiz</a>
+          <a routerLink="/quizzes" routerLinkActive="text-gray-900" 
+             class="text-gray-600 hover:text-gray-900 transition-colors">Quizzes</a>
+          <a routerLink="/analytics" routerLinkActive="text-gray-900" 
+             class="text-gray-600 hover:text-gray-900 transition-colors">Analytics</a>
+          <a routerLink="/contact" routerLinkActive="text-gray-900" 
+             class="text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
+        </ng-container>
+        
+        <!-- User Menu (When Authenticated) -->
+        <div *ngIf="isAuthenticated" class="relative">
+          <button (click)="toggleUserMenu()" class="flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span class="font-medium">{{ username }}</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          
+          <!-- Dropdown Menu -->
+          <div *ngIf="showUserMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+            <div class="px-4 py-2 border-b border-gray-200">
+              <p class="text-sm text-gray-500">Signed in as</p>
+              <p class="font-medium text-gray-900">{{ username }}</p>
+              <p *ngIf="isStudent" class="text-xs text-blue-600 mt-1">Student</p>
+              <p *ngIf="!isStudent" class="text-xs text-purple-600 mt-1">Admin</p>
+            </div>
+            <button (click)="logout()" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              Logout
+            </button>
+          </div>
+        </div>
+        
+        <!-- Login Button (When Not Authenticated) -->
+        <button *ngIf="!isAuthenticated" routerLink="/" [queryParams]="{ login: 'required' }" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+          Login
+        </button>
+      </div>
+      <button class="md:hidden flex items-center">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
